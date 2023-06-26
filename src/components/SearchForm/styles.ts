@@ -26,6 +26,7 @@ export const SearchButton = styled.button`
   border: 1px solid ${(props) => props.theme['green-300']};
   font-weight: bold;
   border-radius: 6px;
+  cursor: pointer;
 
   display: flex;
   align-items: center;
