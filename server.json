@@ -39,6 +39,14 @@
       "type": "input",
       "createdAt": "2023-07-09T18:33:01.057Z",
       "id": 5
+    },
+    {
+      "description": "compras do super mercado",
+      "category": "Compras",
+      "price": 300,
+      "type": "output",
+      "createdAt": "2023-07-09T18:43:09.381Z",
+      "id": 6
     }
   ]
 }
