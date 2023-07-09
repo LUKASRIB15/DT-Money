@@ -1,9 +1,13 @@
+import { useContext } from 'react'
 import { Header } from '../../components/Header'
 import { SearchForm } from '../../components/SearchForm'
 import { Summary } from '../../components/Summary'
 import { LayoutTransactions, RowTable, TransactionsTable } from './styles'
+import { TransactionsContext } from '../../contexts/TransactionsContext'
+import { dateFormatter, priceFormatter } from '../../utils/formatter'
 
 export function Transactions() {
+  const { transactions } = useContext(TransactionsContext)
   return (
     <div>
       <Header />
@@ -13,30 +17,21 @@ export function Transactions() {
         <SearchForm />
         <TransactionsTable>
           <tbody>
-            <RowTable variant="input">
-              <td>Desenvolvimento de site</td>
-              <td>R$ 12.000,00</td>
-              <td>Venda</td>
-              <td>13/04/2022</td>
-            </RowTable>
-            <RowTable variant="output">
-              <td>Hamburguer</td>
-              <td>- R$ 59,00</td>
-              <td>Alimentação</td>
-              <td>10/04/2022</td>
-            </RowTable>
-            <RowTable variant="output">
-              <td>Aluguel de apartamento</td>
-              <td>- R$ 1.200,00</td>
-              <td>Casa</td>
-              <td>27/03/2022</td>
-            </RowTable>
-            <RowTable variant="input">
-              <td>Computador</td>
-              <td>R$ 5.400,00</td>
-              <td>Venda</td>
-              <td>15/03/2022</td>
-            </RowTable>
+            {transactions.map((transaction) => {
+              return (
+                <RowTable key={transaction.id} variant={transaction.type}>
+                  <td>{transaction.description}</td>
+                  <td>
+                    {transaction.type === 'output' && '- '}
+                    {priceFormatter.format(transaction.price)}
+                  </td>
+                  <td>{transaction.category}</td>
+                  <td>
+                    {dateFormatter.format(new Date(transaction.createdAt))}
+                  </td>
+                </RowTable>
+              )
+            })}
           </tbody>
         </TransactionsTable>
       </LayoutTransactions>
